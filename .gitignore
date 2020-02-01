@@ -1,0 +1,6 @@
+/target
+**/*.rs.bk
+
+# development file with credentials
+init.bash
+current_ip.txt
