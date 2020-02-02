@@ -22,6 +22,17 @@ side.
     ./digitalocean-dyn-domain
 ```
 
+## nginx config
+
+If you'd like to add your own endpoint to an nginx config, you can do so like this:
+
+```nginx
+# requests to /my-ip return the remote address
+location /my-ip {
+  return 200 $remote_addr;
+}
+```
+
 ## Disclaimer
 
 This is not a great example of good Rust code. I slapped this together to do the bare minimum to use this for
