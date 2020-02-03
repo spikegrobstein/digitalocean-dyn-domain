@@ -33,6 +33,27 @@ location /my-ip {
 }
 ```
 
+## Docker container
+
+This repo also contains a `Dockerfile` in the `docker` directory. This will build a minimal Docker image that
+contains just the binary and can execute the binary by default.
+
+To build it, run the following from the root of the project:
+
+    docker build -t "$TAG" docker
+
+This will compile the binary using the currently pushed master branch from this repo.
+
+Then execute with:
+
+```bash
+docker run \
+  --env 'DO_API_TOKEN=XXXX' \
+  --env 'DYN_HOSTNAME=home.example.com' \
+  --env 'IP_ENDPOINT=https://example.com/my-ip' \
+  "$TAG"
+```
+
 ## Disclaimer
 
 This is not a great example of good Rust code. I slapped this together to do the bare minimum to use this for
