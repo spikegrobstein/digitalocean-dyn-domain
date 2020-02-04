@@ -56,7 +56,7 @@ fn main() -> Result<(), std::io::Error> {
 
     let ip = get_ip(&endpoint)?;
 
-    println!("Hello, world: {}", ip);
+    println!("Current IP: {}", ip);
 
     // testing out some DO stuff
     let config = digitalocean::Config::new_from_environment();
