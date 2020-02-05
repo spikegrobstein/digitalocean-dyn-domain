@@ -12,6 +12,8 @@ side.
  * `DO_API_TOKEN` -- the DigitalOcean API token
  * `DYN_HOSTNAME` -- the hostname that we will be updating the IP for
  * `IP_ENDPOINT` -- the URL for the endpoint that returns the IP (`https://example.com/my-ip`)
+ * `STATEFILE` (optional) -- path to the statefile that the tool will use to know whether it needs to update
+     the dns record. Default: `./current_ip.txt`
 
 ## Usage
 
@@ -40,7 +42,7 @@ contains just the binary and can execute the binary by default.
 
 To build it, run the following from the root of the project:
 
-    docker build -t "$TAG" docker
+    docker build -t "$TAG" -f docker/Dockerfile .
 
 This will compile the binary using the currently pushed master branch from this repo.
 
@@ -51,6 +53,8 @@ docker run \
   --env 'DO_API_TOKEN=XXXX' \
   --env 'DYN_HOSTNAME=home.example.com' \
   --env 'IP_ENDPOINT=https://example.com/my-ip' \
+  --env 'STATEFILE=/state/current_ip.txt' \
+  --volume './state:/state' \
   "$TAG"
 ```
 
