@@ -18,11 +18,13 @@ fn get_ip(endpoint: &str) -> Result<String, std::io::Error> {
 }
 
 fn write_ip(statefile: &str, ip: &str) -> std::io::Result<()> {
-   let mut f = File::create(statefile)?;
+    eprintln!("Writing statefile: {}", statefile);
 
-   f.write_all(ip.as_bytes())?;
+    let mut f = File::create(statefile)?;
 
-   Ok(())
+    f.write_all(ip.as_bytes())?;
+
+    Ok(())
 }
 
 fn read_ip(statefile: &str) -> std::io::Result<String> {
