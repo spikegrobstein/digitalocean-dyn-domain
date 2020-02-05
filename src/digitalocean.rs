@@ -64,7 +64,13 @@ pub fn list_records(config: &Config) -> ureq::Response {
 }
 
 pub fn find_record_id(config: &Config) -> Option<u32> {
-    let records_json = list_records(config).into_json().unwrap();
+    let resp = list_records(config);
+
+    if ! resp.ok() {
+        panic!("Failed to list records ID");
+    }
+
+    let records_json = resp.into_json().unwrap();
     let array_json = records_json["domain_records"].to_string();
     let records: Vec<DomainRecord> = serde_json::from_str(&array_json).unwrap();
 

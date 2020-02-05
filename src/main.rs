@@ -38,9 +38,13 @@ fn read_ip(statefile: &str) -> std::io::Result<String> {
 
 fn ip_needs_update(statefile: &str, current_ip: &str) -> std::io::Result<bool> {
     if ! Path::new(statefile).exists() {
+        eprintln!("No statefile found. Need to write it.");
+
         // needs to update because the statefile doesn't even exist
         return Ok(true);
     }
+
+    eprintln!("Found statefile: {}", statefile);
 
     // statefile exists, so let's read it in and compare
     let old_ip = read_ip(statefile)?;
@@ -63,6 +67,7 @@ fn main() -> Result<(), std::io::Error> {
     // testing out some DO stuff
     let config = digitalocean::Config::new_from_environment();
 
+    eprintln!("Using hostname: {}", config.hostname);
 
     if ip_needs_update(&statefile, &ip)? {
         eprintln!("Needs update. Writing IP to file...");
