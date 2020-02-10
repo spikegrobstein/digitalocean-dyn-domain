@@ -66,6 +66,7 @@ fn main() -> Result<(), std::io::Error> {
 
     // testing out some DO stuff
     let config = digitalocean::Config::new_from_environment();
+    let client = digitalocean::Client::new(&config);
 
     eprintln!("Using hostname: {}", config.hostname);
 
@@ -74,14 +75,14 @@ fn main() -> Result<(), std::io::Error> {
         write_ip(&statefile, &ip)?;
 
         let record_id = 
-            match digitalocean::find_record_id(&config) {
+            match client.find_record_id() {
                 Some(record_id) => record_id,
                 None => panic!("got no record"),
             };
 
         println!("got id: {}", record_id);
 
-        let resp = digitalocean::update_record(&config, record_id, &ip);
+        let resp = client.update_record(record_id, &ip);
 
         if resp.ok() {
             eprintln!("Updated record!");
