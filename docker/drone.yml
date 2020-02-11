@@ -7,3 +7,4 @@ steps:
   settings:
     repo: docker.home.spike.cx/digitalocean-dyn-domain
     tags: latest
+    dockerfile: docker/Dockerfile
