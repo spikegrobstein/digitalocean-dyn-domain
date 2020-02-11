@@ -31,9 +31,12 @@ If you'd like to add your own endpoint to an nginx config, you can do so like th
 ```nginx
 # requests to /my-ip return the remote address
 location /my-ip {
+  add_header content-type "text/plain";
   return 200 $remote_addr;
 }
 ```
+
+> we add the `content-type` header so that browsers don't try to download the file
 
 ## Docker container
 
